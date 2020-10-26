@@ -92,7 +92,7 @@ function drawCircle(ctx, program, x, y, s) {
     ctx.bufferData(ctx.ARRAY_BUFFER, vertexDataTyped, ctx.STATIC_DRAW);
     
     let resolutionLocation = ctx.getUniformLocation(program, "u_resolution");
-    ctx.uniform2f(resolutionLocation, canvas.width, canvas.height);
+    ctx.uniform2f(resolutionLocation, ctx.canvas.width, ctx.canvas.height);
 
     let positionLocation = ctx.getAttribLocation(program, "a_position");
     ctx.enableVertexAttribArray(positionLocation);
