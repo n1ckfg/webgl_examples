@@ -1,44 +1,49 @@
 <!-- 
 https://stackoverflow.com/questions/40214759/creating-a-circle-with-webgl-with-mouse-clicks 
 https://stackoverflow.com/questions/5878703/webgl-is-there-an-alternative-to-embedding-shaders-in-html
+https://stackoverflow.com/questions/27678052/usage-of-the-backtick-character-in-javascript
 -->
 
 <!DOCTYPE html>
 <html>
 
     <head>
-        <title>Example 2 - Inline Shaders</title>
+        <title>Example 1 - Hello World</title>
     </head>
 
     <body>
-        <a href="example3.html"><canvas id="canvas"></canvas></a>
+        <canvas id="canvas" width="200" height="200"></canvas>
+
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            uniform vec2 u_resolution;
+            attribute vec2 a_position;
+
+            void main(void) {
+                vec2 clipspace = a_position / u_resolution * 2.0 - 1.0;
+                gl_Position = vec4(clipspace * vec2(1, -1), 0, 1);
+            }
+        </script>
+
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            void main(void) {
+                gl_FragColor = vec4(1.0, 0.5, 0.0, 1.0);
+            }
+        </script>
 
         <script>
             "use strict";
 
             let canvas = document.getElementById("canvas");
-            canvas.width = 200;
-            canvas.height = 200;
             let ctx = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");     
-            ctx.clearColor(0.5, 0.5, 0.5, 1.0);
+            //ctx.viewport(0, 0, canvas.width, canvas.height);
+            ctx.clearColor(0.8, 0.0, 0.3, 1.0);
             ctx.clear(ctx.COLOR_BUFFER_BIT);
          
-            let v = `
-                    uniform vec2 u_resolution;
-                    attribute vec2 a_position;
+            let v = document.getElementById("vertex-shader").firstChild.nodeValue;
+            let f = document.getElementById("fragment-shader").firstChild.nodeValue;
 
-                    void main(void) {
-                        vec2 clipspace = a_position / u_resolution * 2.0 - 1.0;
-                        gl_Position = vec4(clipspace * vec2(1, -1), 0, 1);
-                    }
-                    `
-            let f = `
-                    precision mediump float;
-
-                    void main(void) {
-                        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-                    }
-                    `                
             let vs = ctx.createShader(ctx.VERTEX_SHADER);
             ctx.shaderSource(vs, v);
             ctx.compileShader(vs);
