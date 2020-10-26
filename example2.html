@@ -15,24 +15,6 @@ https://stackoverflow.com/questions/40214759/creating-a-circle-with-webgl-with-m
     <body>
         <canvas id="canvas" style="border: none;" width="300" height="150"></canvas>
 
-        <script id="vertex-shader" type="x-shader/x-vertex">
-            uniform vec2 u_resolution;
-            attribute vec2 a_position;
-
-            void main(void) {
-                vec2 clipspace = a_position / u_resolution * 2.0 - 1.0;
-                gl_Position = vec4(clipspace * vec2(1, -1), 0, 1);
-            }
-        </script>
-
-        <script id="fragment-shader" type="x-shader/x-fragment">
-            precision mediump float;
-
-            void main(void) {
-                gl_FragColor = vec4(1.0, 0.5, 0.0, 1.0);
-            }
-        </script>
-
         <script>
             "use strict";
 
@@ -42,9 +24,22 @@ https://stackoverflow.com/questions/40214759/creating-a-circle-with-webgl-with-m
             ctx.clearColor(0.8, 0.0, 0.3, 1.0);//
             ctx.clear(ctx.COLOR_BUFFER_BIT);//
          
-            let v = document.getElementById("vertex-shader").firstChild.nodeValue;//
-            let f = document.getElementById("fragment-shader").firstChild.nodeValue;//
+            let v = `
+                    uniform vec2 u_resolution;
+                    attribute vec2 a_position;
 
+                    void main(void) {
+                        vec2 clipspace = a_position / u_resolution * 2.0 - 1.0;
+                        gl_Position = vec4(clipspace * vec2(1, -1), 0, 1);
+                    }
+                    `
+            let f = `
+                    precision mediump float;
+
+                    void main(void) {
+                        gl_FragColor = vec4(1.0, 0.5, 0.0, 1.0);
+                    }
+                    `
             let vs = ctx.createShader(ctx.VERTEX_SHADER);//
             ctx.shaderSource(vs, v);//
             ctx.compileShader(vs);//
