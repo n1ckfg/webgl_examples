@@ -7,7 +7,6 @@
     </head>
 
     <body>
-        <!--<a href="example1.html"><canvas id="canvas"></canvas></a>-->
         <canvas id="canvas"></canvas>
 
         <script>
@@ -16,7 +15,7 @@
             let canvas = document.getElementById("canvas");
             canvas.width = 200;
             canvas.height = 200;
-            let ctx = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");     
+            let ctx = canvas.getContext("webgl");     
             
             glBackground(ctx, 0.5, 0.5, 0.5, 1.0);         
               
