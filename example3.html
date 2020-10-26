@@ -23,16 +23,16 @@ https://stackoverflow.com/questions/27678052/usage-of-the-backtick-character-in-
             canvas.height = 200;
             let ctx = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");     
             
-            background(ctx, 0.5, 0.5, 0.5, 1.0);         
+            glBackground(ctx, 0.5, 0.5, 0.5, 1.0);         
               
             let program1 = createDefaultProgram(ctx, 1, 1, 1, 1);                    
             let program2 = createDefaultProgram(ctx, 0, 0, 0, 1);                    
 
             ctx.useProgram(program2);
-            drawCircle(ctx, program2, canvas.width/2, canvas.height/2, 55);   
+            glCircle(ctx, program2, canvas.width/2, canvas.height/2, 55);   
 
             ctx.useProgram(program1);
-            drawCircle(ctx, program1, canvas.width/2, canvas.height/2, 50);      
+            glCircle(ctx, program1, canvas.width/2, canvas.height/2, 50);      
         </script>
     </body>
 
